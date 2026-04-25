@@ -120,19 +120,14 @@
       $(`#${lightboxId}`).modal("toggle");
     },
     prevImage() {
-      // Find which image is currently displayed in the lightbox
       let activeImage = null;
       $("img.gallery-item").each(function() {
         if ($(this).attr("src") === $(".lightboxImage").attr("src")) {
           activeImage = $(this);
         }
       });
-
-      // Get the currently active filter tag (e.g. "Concert", "all", etc.)
       let activeTag = $(".tags-bar span.active-tag").data("images-toggle");
       let imagesCollection = [];
-
-      // Build the list of images to navigate through based on the active filter
       if (activeTag === "all") {
         $(".item-column").each(function() {
           if ($(this).children("img").length) {
@@ -153,37 +148,26 @@
 
       let index = 0,
         next = null;
-
-      //  was "index = i" which kept showing the same image.
-      // Changed to "index = i - 1" to actually go back one step in the list.
       $(imagesCollection).each(function(i) {
         if ($(activeImage).attr("src") === $(this).attr("src")) {
           index = i - 1;
         }
       });
-
-      // If index is -1 (we're already at the first image), wrap around to the last one
       next =
         imagesCollection[index] ||
         imagesCollection[imagesCollection.length - 1];
 
-      // Update the lightbox to show the previous image
       $(".lightboxImage").attr("src", $(next).attr("src"));
     },
     nextImage() {
-      // Find which image is currently displayed in the lightbox
       let activeImage = null;
       $("img.gallery-item").each(function() {
         if ($(this).attr("src") === $(".lightboxImage").attr("src")) {
           activeImage = $(this);
         }
       });
-
-      // Get the currently active filter tag
       let activeTag = $(".tags-bar span.active-tag").data("images-toggle");
       let imagesCollection = [];
-
-      // Build the list of images to navigate through based on the active filter
       if (activeTag === "all") {
         $(".item-column").each(function() {
           if ($(this).children("img").length) {
@@ -204,19 +188,12 @@
 
       let index = 0,
         next = null;
-
-      //  was "index = i" which kept showing the same image.
-      // Changed to "index = i + 1" to advance one step forward in the list.
       $(imagesCollection).each(function(i) {
         if ($(activeImage).attr("src") === $(this).attr("src")) {
           index = i + 1;
         }
       });
-
-      // If index goes past the last image, wrap around to the first one
       next = imagesCollection[index] || imagesCollection[0];
-
-      // Update the lightbox to show the next image
       $(".lightboxImage").attr("src", $(next).attr("src"));
     },
     createLightBox(gallery, lightboxId, navigation) {
@@ -260,35 +237,22 @@
       }
     },
     filterByTag() {
-      // If the clicked tag is already active, do nothing
       if ($(this).hasClass("active-tag")) {
         return;
       }
-
-      // Remove both classes from whichever tag was previously selected
       $(".active-tag").removeClass("active active-tag");
-
-      // was addClass("active-tag") only — the gold background never appeared.
-      // "active" is the Bootstrap class that triggers the gold background colour via CSS.
-      // "active-tag" is used internally by the filter logic to track which tag is selected.
-      // Both are needed: "active" for the visual style, "active-tag" for the internal state.
       $(this).addClass("active active-tag");
 
-      // Read the filter value from the data-images-toggle attribute on the clicked tag
       var tag = $(this).data("images-toggle");
-
-      // Loop through every gallery image: hide all, then show only the ones matching the filter
       $(".gallery-item").each(function() {
         $(this)
           .parents(".item-column")
           .hide();
         if (tag === "all") {
-          // "Tous" is selected: show every image
           $(this)
             .parents(".item-column")
             .show(300);
         } else if ($(this).data("gallery-tag") === tag) {
-          // Show only images whose data-gallery-tag matches the selected filter
           $(this)
             .parents(".item-column")
             .show(300);

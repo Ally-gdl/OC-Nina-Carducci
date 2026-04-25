@@ -2,11 +2,6 @@ body {
 	max-width: 1920px;
 	margin: auto;
 }
-
-/* forces all images to scale their height proportionally from their displayed width.
-   Without this, adding width/height attributes to img tags caused images to stretch
-   vertically because the browser treated the height number as an absolute pixel value.
-   height: auto tells the browser to always calculate height from the aspect ratio instead. */
 img {
 	height: auto;
 }
@@ -100,7 +95,7 @@ img {
 }
 
 #gallery {
-	/*	min-height: 100vh; */
+
 }
 .title{
 	text-align: center;
@@ -109,11 +104,6 @@ img {
 .gallery .nav {
 	justify-content: center;
 }
-
-/* background-color was #BEB45A (original gold)
-   WCAG AA accessibility standard requires at least 4.5:1 for normal text.
-   Changed to #7A7230 (darker gold) which achieves ~4.6:1 and passes WCAG AA.
-   The colour still looks gold visually, just slightly deeper. */
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
 	color: #fff;
 	background-color: #7A7230;
